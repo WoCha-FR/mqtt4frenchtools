@@ -178,7 +178,7 @@ frenchtools/Lyon69/vigilance
 
 mqtt4apcaccess is maintained under the [semantic versioning](https://semver.org/) guidelines.
 
-See the [releases](https://github.com/releases) on this repository for changelog.
+See the [releases](https://github.com/WoCha-FR/mqtt4frenchtools/releases) on this repository for changelog.
 
 ## License
 
