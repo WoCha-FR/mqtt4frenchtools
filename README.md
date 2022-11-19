@@ -88,8 +88,8 @@ frenchtools/global/edftempo
   "nb_bleu":222,
   "nb_blanc":43,
   "nb_rouge":22,
-  "tempodebut":"2022-09-01",
-  "tempofin":"2023-08-31"
+  "tempodebut":"01/092022",
+  "tempofin":"31/08/2023"
 }
 ```
 
