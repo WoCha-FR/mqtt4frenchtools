@@ -122,7 +122,7 @@ frenchtools/Lyon69/vacances
 {
   "jourestvacance":0,
   "journomvacance":"",
-  "jourfinvacance":-1,
+  "jourfinvacance":"",
   "prochainvacdate":"17/12",
   "prochainvacnom":"Vacances de Noël",
   "prochainvacdif":30
@@ -140,7 +140,7 @@ frenchtools/Lyon69/soleil
   "soleilposv":"-0.70",
   "soleilposh":"209.80",
   "jourduree":"9:28",
-  "jourdifference":"- 3m26s"
+  "jourdifference":"-3m26s"
 }
 ```
 

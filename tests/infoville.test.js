@@ -119,16 +119,23 @@ describe('Sun and Moon', () => {
   })
 
   test('Should return correct sun value for datetime', async () => {
-    const res = { jourdifference: '- 3m59s', jourduree: '11:34', soleilcoucher: '19:08', soleilelevation: '-46.73', soleilelevzenith: '41.61', soleillever: '7:34', soleilposh: '5.00', soleilposv: '-15.00', soleilzenith: '13:21' }
+    const res = { jourdifference: '-3m59s', jourduree: '11:34', soleilcoucher: '19:08', soleilelevation: '-1.38', soleilelevzenith: '41.61', soleillever: '7:34', soleilposh: '5.00', soleilposv: '-15.00', soleilzenith: '13:21' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2023, 9, 5) })
+    jest.useFakeTimers({ now: new Date(2023, 9, 5, 7, 30, 0) })
     await client.getSunData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
   })
   test('Should return correct sun value for datetime', async () => {
-    const res = { jourdifference: '+ 2m55s', jourduree: '13:09', soleilcoucher: '20:08', soleilelevation: '-34.41', soleilelevzenith: '53.99', soleillever: '6:58', soleilposh: '5.00', soleilposv: '-15.00', soleilzenith: '13:33' }
+    const res = { jourdifference: '+2m55s', jourduree: '13:09', soleilcoucher: '20:08', soleilelevation: '53.52', soleilelevzenith: '53.99', soleillever: '6:58', soleilposh: '125.19', soleilposv: '39.52', soleilzenith: '13:33' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2023, 3, 10) })
+    jest.useFakeTimers({ now: new Date(2023, 3, 10, 14, 0) })
+    await client.getSunData('43.8146', '7.1621', 'topic')
+    expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
+  })
+  test('Should return correct sun value for datetime', async () => {
+    const res = { jourdifference: '+0m5s', jourduree: '15:27', soleilcoucher: '21:18', soleilelevation: '32.54', soleilelevzenith: '69.62', soleillever: '5:50', soleilposh: '181.99', soleilposv: '10.71', soleilzenith: '13:34' }
+    const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
+    jest.useFakeTimers({ now: new Date(2023, 5, 21, 18, 0) })
     await client.getSunData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
   })
@@ -207,11 +214,19 @@ describe('getMeteoVigilance', () => {
     timezone: 'Europe/Paris',
     'geofilter.distance': '44.8624,-0.5848'
   }
+  const params3 = {
+    dataset: 'risques-meteorologiques-copy@public',
+    lang: 'fr',
+    rows: 1,
+    timezone: 'Europe/Paris',
+    'geofilter.distance': '43.8624,0.5848'
+  }
 
   beforeAll(async () => {
     mock
       .onGet(baseURL, { params: params1 }).reply(200, { records: [] })
       .onGet(baseURL, { params: params2 }).reply(200, { records: [{ fields: { etat_inondation: 'Vert', etat_vent: 'Jaune', etat_orage: 'Vert', etat_avalanches: 'Vert', etat_pluie_inondation: 'Vert', etat_canicule: 'Vert', etat_neige: 'Vert', etat_vague_submersion: 'Jaune', etat_grand_froid: 'Vert', crue_valeur: 'VIDE', vigilanceconseil_texte: 'VIDE', vigilancecommentaire_texte: 'VIDE' } }] })
+      .onGet(baseURL, { params: params3 }).reply(200, { records: [{ fields: { etat_inondation: 'Vert', etat_vent: 'Jaune', etat_orage: 'Vert', etat_avalanches: 'Vert', etat_pluie_inondation: 'Vert', etat_canicule: 'Vert', etat_neige: 'Vert', etat_vague_submersion: 'Jaune', etat_grand_froid: 'Vert' } }] })
       .onAny().reply(404)
   })
   afterAll(() => {
@@ -231,6 +246,14 @@ describe('getMeteoVigilance', () => {
     const spy1 = jest.spyOn(logger, 'warn')
     const spy2 = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     await client.getMeteoVigilance('44.8624', '-0.5848', 'vigimet')
+    expect(spy1).not.toHaveBeenCalled()
+    expect(spy2).toHaveBeenCalledWith('frame', 'vigimet/vigilance', res)
+  })
+  test('should send data for correct geofilter', async () => {
+    const res = { avalanches: 'Vert', canicule: 'Vert', commentaire: '', conseil: '', crue: '', grandfroid: 'Vert', inondation: 'Vert', neige: 'Vert', orage: 'Vert', pluie_inondation: 'Vert', vague_submersion: 'Jaune', vent: 'Jaune' }
+    const spy1 = jest.spyOn(logger, 'warn')
+    const spy2 = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
+    await client.getMeteoVigilance('43.8624', '0.5848', 'vigimet')
     expect(spy1).not.toHaveBeenCalled()
     expect(spy2).toHaveBeenCalledWith('frame', 'vigimet/vigilance', res)
   })
@@ -278,14 +301,14 @@ describe('getVacances', () => {
   })
 
   test('Should return correct value Zone A', async () => {
-    const res = { jourestvacance: 0, jourfinvacance: -1, journomvacance: '', prochainvacdate: '17/12', prochainvacdif: 12, prochainvacnom: 'Vacances de Noël' }
+    const res = { jourestvacance: 0, jourfinvacance: '', journomvacance: '', prochainvacdate: '17/12', prochainvacdif: 12, prochainvacnom: 'Vacances de Noël' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2022, 11, 5) })
     await client.getVacances('A', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
   test('Should return correct value for Zone B', async () => {
-    const res = { jourestvacance: 0, jourfinvacance: -1, journomvacance: '', prochainvacdate: '11/02', prochainvacdif: 1, prochainvacnom: "Vacances d'Hiver" }
+    const res = { jourestvacance: 0, jourfinvacance: '', journomvacance: '', prochainvacdate: '11/02', prochainvacdif: 1, prochainvacnom: "Vacances d'Hiver" }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 1, 10) })
     await client.getVacances('B', 'topic')
