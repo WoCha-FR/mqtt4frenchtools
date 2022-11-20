@@ -93,7 +93,7 @@ describe('EDF Tempo', () => {
     })
     test('should return valid data', async () => {
       const client = new InfoGlobal()
-      const res = { coulj: 'BLEU', coulj1: 'BLEU', nb_blanc: 3, nb_bleu: 35, nb_rouge: 1, tempodebut: '2023-09-01', tempofin: '2024-08-31' }
+      const res = { coulj: 'BLEU', coulj1: 'BLEU', nb_blanc: 3, nb_bleu: 35, nb_rouge: 1, tempodebut: '01/09/2023', tempofin: '31/08/2024' }
       const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
       jest.useFakeTimers({ now: new Date(2024, 4, 5) })
       await client.getEDF()
@@ -109,12 +109,14 @@ describe('EDF Tempo', () => {
         .onAny().reply(404)
     })
     afterAll(() => {
-      jest.useRealTimers()
       mock.reset()
+    })
+    afterEach(() => {
+      jest.useRealTimers()
     })
     test('should return right data 3', async () => {
       const client = new InfoGlobal()
-      const res = { coulj: 'NO_DATA', coulj1: 'NO_DATA', nb_blanc: 'NO_DATA', nb_bleu: 'NO_DATA', nb_rouge: 'NO_DATA', tempodebut: '2023-09-01', tempofin: '2024-08-31' }
+      const res = { coulj: 'NO_DATA', coulj1: 'NO_DATA', nb_blanc: 'NO_DATA', nb_bleu: 'NO_DATA', nb_rouge: 'NO_DATA', tempodebut: '01/09/2023', tempofin: '31/08/2024' }
       const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
       jest.useFakeTimers({ now: new Date(2023, 9, 5) })
       await client.getEDF()
