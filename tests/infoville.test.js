@@ -126,14 +126,14 @@ describe('Sun and Moon', () => {
     expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
   })
   test('Should return correct sun value for datetime', async () => {
-    const res = { jourdifference: '+2m55s', jourduree: '13:09', soleilcoucher: '20:08', soleilelevation: '-34.41', soleilelevzenith: '53.99', soleillever: '6:58', soleilposh: '5.00', soleilposv: '-15.00', soleilzenith: '13:33' }
+    const res = { jourdifference: '+2m55s', jourduree: '13:09', soleilcoucher: '20:08', soleilelevation: '53.52', soleilelevzenith: '53.99', soleillever: '6:58', soleilposh: '125.19', soleilposv: '39.52', soleilzenith: '13:33' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 3, 10, 14, 0) })
     await client.getSunData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
   })
   test('Should return correct sun value for datetime', async () => {
-    const res = { jourdifference: '+0m05s', jourduree: '15:27', soleilcoucher: '21:18', soleilelevation: '32.54', soleilelevzenith: '69.62', soleillever: '5:50', soleilposh: '191.99', soleilposv: '10,71', soleilzenith: '13:34' }
+    const res = { jourdifference: '+0m5s', jourduree: '15:27', soleilcoucher: '21:18', soleilelevation: '32.54', soleilelevzenith: '69.62', soleillever: '5:50', soleilposh: '181.99', soleilposv: '10.71', soleilzenith: '13:34' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 5, 21, 18, 0) })
     await client.getSunData('43.8146', '7.1621', 'topic')
