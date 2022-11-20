@@ -1,6 +1,6 @@
 {
   "name": "mqtt4frenchtools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Publish multiple french data to MQTT",
   "main": "index.js",
   "bin": {
@@ -49,7 +49,7 @@
     "aedes": "^0.48.0",
     "axios-mock-adapter": "^1.21.2",
     "coveralls": "^3.1.1",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.1.5",
