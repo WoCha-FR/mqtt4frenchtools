@@ -20,8 +20,10 @@ describe('Create InfosGlobales', () => {
 describe('Test getSaints function', () => {
   const client = new InfoGlobal()
   const result = {
-    saintj: 'Saint Almaque, Saint Aspaïs, Saint Castule, Saint Concorde, Sainte Euphrosyne d\'Égypte, Saint Fulgence, Saint Odilon, Saint Paracode et Saint Stable.',
-    saintj1: 'Saint Adelart, Saint Basile le Grand, Saint Domne, Saint Macaire le Jeune et Saint Silain.'
+    saintj: 'Jour de l\'an',
+    saintj1: 'Basile',
+    saintsj: 'Saint Almaque, Saint Aspaïs, Saint Castule, Saint Concorde, Sainte Euphrosyne d\'Égypte, Saint Fulgence, Saint Odilon, Saint Paracode et Saint Stable.',
+    saintsj1: 'Saint Adelart, Saint Basile le Grand, Saint Domne, Saint Macaire le Jeune et Saint Silain.'
   }
   afterEach(() => {
     jest.useRealTimers()
@@ -40,6 +42,8 @@ describe('Test getJourSemAn function', () => {
   const res1 = { dstdate: '27/03', dstdiff: 85, nbjouran: 365, numjouran: 1, numsem: 52 }
   const res2 = { dstdate: '27/03/2033', dstdiff: 86, nbjouran: 366, numjouran: 366, numsem: 53 }
   const res3 = { dstdate: '27/10', dstdiff: 179, nbjouran: 366, numjouran: 122, numsem: 18 }
+  const res4 = { dstdate: '31/03', dstdiff: 90, nbjouran: 366, numjouran: 1, numsem: 1 }
+  const res5 = { dstdate: '30/10', dstdiff: 78, nbjouran: 365, numjouran: 225, numsem: 32 }
   afterEach(() => {
     jest.useRealTimers()
   })
@@ -61,6 +65,18 @@ describe('Test getJourSemAn function', () => {
     jest.useFakeTimers({ now: new Date(2024, 4, 1) })
     await client.getJourSemAn()
     expect(spy).toHaveBeenCalledWith('frame', 'global/annee', res3)
+  })
+  test('should return correct values 4', async () => {
+    const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
+    jest.useFakeTimers({ now: new Date(2024, 0, 1) })
+    await client.getJourSemAn()
+    expect(spy).toHaveBeenCalledWith('frame', 'global/annee', res4)
+  })
+  test('should return correct values 5', async () => {
+    const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
+    jest.useFakeTimers({ now: new Date(2022, 7, 13) })
+    await client.getJourSemAn()
+    expect(spy).toHaveBeenCalledWith('frame', 'global/annee', res5)
   })
 })
 

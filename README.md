@@ -64,8 +64,10 @@ mqtt4apcaccess -u mqtt://192.168.5.1 -a Lyon
 ```
 frenchtools/global/saints
 {
-  "saintj":"Sainte Agnès, Saint Almer, Saint Augustien, Saint Edme.",
-  "saintj1":"Saint Aciscle, Saint Alphée, Saint Denis d'Alexandrie."
+  "saintj":"Jour de l'an",
+  "saintj1":"Basile"
+  "saintsj":"Sainte Agnès, Saint Almer, Saint Augustien, Saint Edme.",
+  "saintsj1":"Saint Aciscle, Saint Alphée, Saint Denis d'Alexandrie."
 }
 ```
 
