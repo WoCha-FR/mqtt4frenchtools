@@ -39,12 +39,12 @@ describe('Test getSaints function', () => {
 
 describe('Test getJourSemAn function', () => {
   const client = new InfoGlobal()
-  const res1 = { dstdate: '27/03', dstdiff: 85, nbjouran: 365, numjouran: 1, numsem: 52 }
-  const res2 = { dstdate: '27/03/2033', dstdiff: 86, nbjouran: 366, numjouran: 366, numsem: 53 }
-  const res3 = { dstdate: '27/10', dstdiff: 179, nbjouran: 366, numjouran: 122, numsem: 18 }
-  const res4 = { dstdate: '31/03', dstdiff: 90, nbjouran: 366, numjouran: 1, numsem: 1 }
-  const res5 = { dstdate: '30/10', dstdiff: 170, nbjouran: 365, numjouran: 133, numsem: 19 }
-  const res6 = { dstdate: '30/10', dstdiff: 212, nbjouran: 365, numjouran: 91, numsem: 13 }
+  const res1 = { dstDate: '27/03', dstDiff: 85, anNbjour: 365, anNumjour: 1, anNumsem: 52 }
+  const res2 = { dstDate: '27/03/2033', dstDiff: 86, anNbjour: 366, anNumjour: 366, anNumsem: 53 }
+  const res3 = { dstDate: '27/10', dstDiff: 179, anNbjour: 366, anNumjour: 122, anNumsem: 18 }
+  const res4 = { dstDate: '31/03', dstDiff: 90, anNbjour: 366, anNumjour: 1, anNumsem: 1 }
+  const res5 = { dstDate: '30/10', dstDiff: 170, anNbjour: 365, anNumjour: 133, anNumsem: 19 }
+  const res6 = { dstDate: '30/10', dstDiff: 212, anNbjour: 365, anNumjour: 91, anNumsem: 13 }
   afterEach(() => {
     jest.useRealTimers()
   })
@@ -116,7 +116,7 @@ describe('EDF Tempo', () => {
     })
     test('should return valid data', async () => {
       const client = new InfoGlobal()
-      const res = { coulj: 'BLEU', coulj1: 'BLEU', nb_blanc: 3, nb_bleu: 35, nb_rouge: 1, tempodebut: '01/09/2023', tempofin: '31/08/2024' }
+      const res = { tempoCoulj: 'BLEU', tempoCoulj1: 'BLEU', tempoBlanc: 3, tempoBleu: 35, tempoRouge: 1, tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
       const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
       jest.useFakeTimers({ now: new Date(2024, 4, 5) })
       await client.getEDF()
@@ -139,7 +139,7 @@ describe('EDF Tempo', () => {
     })
     test('should return right data 3', async () => {
       const client = new InfoGlobal()
-      const res = { coulj: 'NO_DATA', coulj1: 'NO_DATA', nb_blanc: 'NO_DATA', nb_bleu: 'NO_DATA', nb_rouge: 'NO_DATA', tempodebut: '01/09/2023', tempofin: '31/08/2024' }
+      const res = { tempoCoulj: 'NO_DATA', tempoCoulj1: 'NO_DATA', tempoBlanc: 'NO_DATA', tempoBleu: 'NO_DATA', tempoRouge: 'NO_DATA', tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
       const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
       jest.useFakeTimers({ now: new Date(2023, 9, 5) })
       await client.getEDF()

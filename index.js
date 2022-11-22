@@ -38,7 +38,7 @@ function updateData () {
     infoFr.getJourSemAn()
     for (const key in mesVilles) {
       infoVi.getJourFerie(mesVilles[key].dpt, key)
-      infoVi.getMeteoVigilance(mesVilles[key].vac, key)
+      infoVi.getVacances(mesVilles[key].vac, key)
     }
     lastJours = curJours
   }

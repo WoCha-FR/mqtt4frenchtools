@@ -119,77 +119,77 @@ describe('Sun and Moon', () => {
   })
 
   test('Should return correct sun value for datetime', async () => {
-    const res = { jourdifference: '-3m59s', jourduree: '11:34', soleilcoucher: '19:08', soleilelevation: '-1.38', soleilelevzenith: '41.61', soleillever: '7:34', soleilposh: '5.00', soleilposv: '-15.00', soleilzenith: '13:21' }
+    const res = { soleilDiff: '-3m59s', soleilDuree: '11:34', soleilCoucher: '19:08', soleilElevation: '-1.38', soleilElevzenith: '41.61', soleilLever: '7:34', soleilPosh: '5.00', soleilPosv: '-15.00', soleilZenith: '13:21' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 9, 5, 7, 30, 0) })
     await client.getSunData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
   })
   test('Should return correct sun value for datetime', async () => {
-    const res = { jourdifference: '+2m55s', jourduree: '13:09', soleilcoucher: '20:08', soleilelevation: '53.52', soleilelevzenith: '53.99', soleillever: '6:58', soleilposh: '125.19', soleilposv: '39.52', soleilzenith: '13:33' }
+    const res = { soleilDiff: '+2m55s', soleilDuree: '13:09', soleilCoucher: '20:08', soleilElevation: '53.52', soleilElevzenith: '53.99', soleilLever: '6:58', soleilPosh: '125.19', soleilPosv: '39.52', soleilZenith: '13:33' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 3, 10, 14, 0) })
     await client.getSunData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
   })
   test('Should return correct sun value for datetime', async () => {
-    const res = { jourdifference: '+0m5s', jourduree: '15:27', soleilcoucher: '21:18', soleilelevation: '32.54', soleilelevzenith: '69.62', soleillever: '5:50', soleilposh: '181.99', soleilposv: '10.71', soleilzenith: '13:34' }
+    const res = { soleilDiff: '+0m5s', soleilDuree: '15:27', soleilCoucher: '21:18', soleilElevation: '32.54', soleilElevzenith: '69.62', soleilLever: '5:50', soleilPosh: '181.99', soleilPosv: '10.71', soleilZenith: '13:34' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 5, 21, 18, 0) })
     await client.getSunData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/soleil', res)
   })
   test('Should return correct moon value for Nouvelle lune', async () => {
-    const res = { lunelever: '08:07', lunecoucher: '16:51', lunelevation: '-72.65', lunetoujours: 0, luneabsente: 0, lunephase: 'Nouvelle lune' }
+    const res = { luneLever: '08:07', luneCoucher: '16:51', luneElevation: '-72.65', luneToujours: 0, luneAbsente: 0, lunePhase: 'Nouvelle lune' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 0, 21) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/lune', res)
   })
   test('Should return correct moon value for Premier croissant', async () => {
-    const res = { lunelever: '09:54', lunecoucher: '20:49', lunelevation: '-44.46', lunetoujours: 0, luneabsente: 0, lunephase: 'Premier croissant' }
+    const res = { luneLever: '09:54', luneCoucher: '20:49', luneElevation: '-44.46', luneToujours: 0, luneAbsente: 0, lunePhase: 'Premier croissant' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 0, 24) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/lune', res)
   })
   test('Should return correct moon value for Premier quartier', async () => {
-    const res = { lunelever: '11:24', lunecoucher: '00:30', lunelevation: '5.17', lunetoujours: 0, luneabsente: 0, lunephase: 'Premier quartier' }
+    const res = { luneLever: '11:24', luneCoucher: '00:30', luneElevation: '5.17', luneToujours: 0, luneAbsente: 0, lunePhase: 'Premier quartier' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 0, 28) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/lune', res)
   })
   test('Should return correct moon value for Lune croissante', async () => {
-    const res = { lunelever: '14:20', lunecoucher: '06:06', lunelevation: '59.45', lunetoujours: 0, luneabsente: 0, lunephase: 'Lune croissante' }
+    const res = { luneLever: '14:20', luneCoucher: '06:06', luneElevation: '59.45', luneToujours: 0, luneAbsente: 0, lunePhase: 'Lune croissante' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 1, 2) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/lune', res)
   })
   test('Should return correct moon value for Pleine lune', async () => {
-    const res = { lunelever: '17:20', lunecoucher: '08:06', lunelevation: '69.45', lunetoujours: 0, luneabsente: 0, lunephase: 'Pleine lune' }
+    const res = { luneLever: '17:20', luneCoucher: '08:06', luneElevation: '69.45', luneToujours: 0, luneAbsente: 0, lunePhase: 'Pleine lune' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 1, 5) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/lune', res)
   })
   test('Should return correct moon value for Lune decroissante', async () => {
-    const res = { lunelever: '20:34', lunecoucher: '09:13', lunelevation: '44.57', lunetoujours: 0, luneabsente: 0, lunephase: 'Lune decroissante' }
+    const res = { luneLever: '20:34', luneCoucher: '09:13', luneElevation: '44.57', luneToujours: 0, luneAbsente: 0, lunePhase: 'Lune decroissante' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 1, 8) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/lune', res)
   })
   test('Should return correct moon value for Dernier quartier', async () => {
-    const res = { lunelever: '02:30', lunecoucher: '11:34', lunelevation: '-23.68', lunetoujours: 0, luneabsente: 0, lunephase: 'Dernier quartier' }
+    const res = { luneLever: '02:30', luneCoucher: '11:34', luneElevation: '-23.68', luneToujours: 0, luneAbsente: 0, lunePhase: 'Dernier quartier' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 1, 14) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/lune', res)
   })
   test('Should return correct moon value for Dernier croissant', async () => {
-    const res = { lunelever: '05:57', lunecoucher: '14:30', lunelevation: '-58.21', lunetoujours: 0, luneabsente: 0, lunephase: 'Dernier croissant' }
+    const res = { luneLever: '05:57', luneCoucher: '14:30', luneElevation: '-58.21', luneToujours: 0, luneAbsente: 0, lunePhase: 'Dernier croissant' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 1, 17) })
     await client.getMoonData('43.8146', '7.1621', 'topic')
@@ -242,7 +242,7 @@ describe('getMeteoVigilance', () => {
     expect(spy1).toHaveBeenCalledWith('Pas de données pour cette position')
   })
   test('should send data for correct geofilter', async () => {
-    const res = { avalanches: 'Vert', canicule: 'Vert', commentaire: 'VIDE', conseil: 'VIDE', crue: 'VIDE', grandfroid: 'Vert', inondation: 'Vert', neige: 'Vert', orage: 'Vert', pluie_inondation: 'Vert', vague_submersion: 'Jaune', vent: 'Jaune' }
+    const res = { vigiAvalanche: 'Vert', vigiCanicule: 'Vert', vigiComment: 'VIDE', vigiConseil: 'VIDE', vigiCrue: 'VIDE', vigiFroid: 'Vert', vigiInondation: 'Vert', vigiNeige: 'Vert', vigiOrage: 'Vert', vigiPluie: 'Vert', vigiVague: 'Jaune', vigiVent: 'Jaune' }
     const spy1 = jest.spyOn(logger, 'warn')
     const spy2 = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     await client.getMeteoVigilance('44.8624', '-0.5848', 'vigimet')
@@ -250,7 +250,7 @@ describe('getMeteoVigilance', () => {
     expect(spy2).toHaveBeenCalledWith('frame', 'vigimet/vigilance', res)
   })
   test('should send data for correct geofilter', async () => {
-    const res = { avalanches: 'Vert', canicule: 'Vert', commentaire: '', conseil: '', crue: '', grandfroid: 'Vert', inondation: 'Vert', neige: 'Vert', orage: 'Vert', pluie_inondation: 'Vert', vague_submersion: 'Jaune', vent: 'Jaune' }
+    const res = { vigiAvalanche: 'Vert', vigiCanicule: 'Vert', vigiComment: '', vigiConseil: '', vigiCrue: '', vigiFroid: 'Vert', vigiInondation: 'Vert', vigiNeige: 'Vert', vigiOrage: 'Vert', vigiPluie: 'Vert', vigiVague: 'Jaune', vigiVent: 'Jaune' }
     const spy1 = jest.spyOn(logger, 'warn')
     const spy2 = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     await client.getMeteoVigilance('43.8624', '0.5848', 'vigimet')
@@ -269,21 +269,21 @@ describe('getJourFerie', () => {
   })
 
   test('Should return correct value for metropole', async () => {
-    const res = { jourestferie: 0, journomferie: '', prochainfdate: '10/04', prochainfdif: 5, prochainfnom: 'Lundi de Pâques' }
+    const res = { ferCejour: 0, ferNom: '', ferProchaindate: '10/04', ferProchainjour: 5, ferProchainnom: 'Lundi de Pâques' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 3, 5) })
     await client.getJourFerie('42', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/ferie', res)
   })
   test('Should return correct value for Alsace-Moselle', async () => {
-    const res = { jourestferie: 1, journomferie: 'Jour de Noël', prochainfdate: '26/12', prochainfdif: 1, prochainfnom: '2ème jour de Noël' }
+    const res = { ferCejour: 1, ferNom: 'Jour de Noël', ferProchaindate: '26/12', ferProchainjour: 1, ferProchainnom: '2ème jour de Noël' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2022, 11, 25) })
     await client.getJourFerie('67', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/ferie', res)
   })
   test('Should return correct value for ferie', async () => {
-    const res = { jourestferie: 1, journomferie: 'Jour de Noël', prochainfdate: '01/01', prochainfdif: 7, prochainfnom: '1er janvier' }
+    const res = { ferCejour: 1, ferNom: 'Jour de Noël', ferProchaindate: '01/01', ferProchainjour: 7, ferProchainnom: '1er janvier' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2022, 11, 25) })
     await client.getJourFerie('38', 'topic')
@@ -301,28 +301,28 @@ describe('getVacances', () => {
   })
 
   test('Should return correct value Zone A', async () => {
-    const res = { jourestvacance: 0, jourfinvacance: '', journomvacance: '', prochainvacdate: '17/12', prochainvacdif: 12, prochainvacnom: 'Vacances de Noël' }
+    const res = { vacCejour: 0, vacFin: '', vacNom: '', vacProchaindate: '17/12', vacProchainjour: 12, vacProchainom: 'Vacances de Noël' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2022, 11, 5) })
     await client.getVacances('A', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
   test('Should return correct value for Zone B', async () => {
-    const res = { jourestvacance: 0, jourfinvacance: '', journomvacance: '', prochainvacdate: '11/02', prochainvacdif: 1, prochainvacnom: "Vacances d'Hiver" }
+    const res = { vacCejour: 0, vacFin: '', vacNom: '', vacProchaindate: '11/02', vacProchainjour: 1, vacProchainom: "Vacances d'Hiver" }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 1, 10) })
     await client.getVacances('B', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
   test('Should return correct value for Zone C', async () => {
-    const res = { jourestvacance: 1, jourfinvacance: 3, journomvacance: "Vacances d'Hiver", prochainvacdate: '22/04', prochainvacdif: 49, prochainvacnom: 'Vacances de Printemps' }
+    const res = { vacCejour: 1, vacFin: 3, vacNom: "Vacances d'Hiver", vacProchaindate: '22/04', vacProchainjour: 49, vacProchainom: 'Vacances de Printemps' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 2, 3) })
     await client.getVacances('C', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
   test('Should return correct value for Zone CORSE', async () => {
-    const res = { jourestvacance: 1, jourfinvacance: 0, journomvacance: 'Vacances de Printemps', prochainvacdate: '17/05', prochainvacdif: 13, prochainvacnom: "Pont de l'Ascension" }
+    const res = { vacCejour: 1, vacFin: 0, vacNom: 'Vacances de Printemps', vacProchaindate: '17/05', vacProchainjour: 13, vacProchainom: "Pont de l'Ascension" }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
     jest.useFakeTimers({ now: new Date(2023, 4, 4) })
     await client.getVacances('CORSE', 'topic')

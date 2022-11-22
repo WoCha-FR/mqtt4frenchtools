@@ -74,24 +74,24 @@ frenchtools/global/saints
 ```
 frenchtools/global/annee
 {
-  "nbjouran":365,
-  "numjouran":320,
-  "dstdate":"26/03/2023",
-  "dstdiff":130,
-  "numsem":46
+  "anNbjour":365,
+  "anNumjour":326,
+  "dstDate":"26/03/2023",
+  "dstDiff":124,
+  "anNumsem":47
 }
 ```
 
 ```
 frenchtools/global/edftempo
 {
-  "coulj":"TEMPO_BLEU",
-  "coulj1":"TEMPO_BLEU",
-  "nb_bleu":222,
-  "nb_blanc":43,
-  "nb_rouge":22,
-  "tempodebut":"01/092022",
-  "tempofin":"31/08/2023"
+  "tempoCoulj": "TEMPO_BLEU",
+  "tempoCoulj1": "TEMPO_BLEU",
+  "tempoBleu": 216,
+  "tempoBlanc": 43,
+  "tempoRouge": 22,
+  "tempoDeb": "01/09/2022",
+  "tempoFin": "31/08/2023"
 }
 ```
 
@@ -111,68 +111,68 @@ frenchtools/Lyon69/infos
 ```
 frenchtools/Lyon69/ferie
 {
-  "jourestferie":0,
-  "journomferie":"",
-  "prochainfdate":"25/12",
-  "prochainfnom":"Jour de Noël",
-  "prochainfdif":39
+  "ferCejour": 0,
+  "ferNom": "",
+  "ferProchaindate": "25/12",
+  "ferProchainnom": "Jour de Noël",
+  "ferProchainjour": 33
 }
 ```
 
 ```
 frenchtools/Lyon69/vacances
 {
-  "jourestvacance":0,
-  "journomvacance":"",
-  "jourfinvacance":"",
-  "prochainvacdate":"17/12",
-  "prochainvacnom":"Vacances de Noël",
-  "prochainvacdif":30
+  "vacCejour": 0,
+  "vacNom": "",
+  "vacFin": "",
+  "vacProchaindate": "17/12",
+  "vacProchainom": "Vacances de Noël",
+  "vacProchainjour": 24
 }
 ```
 
 ```
 frenchtools/Lyon69/soleil
 {
-  "soleillever":"7:42",
-  "soleilzenith":"12:26",
-  "soleilcoucher":"17:10",
-  "soleilelevation":"6.64",
-  "soleilelevzenith":"25.54",
-  "soleilposv":"-0.70",
-  "soleilposh":"209.80",
-  "jourduree":"9:28",
-  "jourdifference":"-3m26s"
+  "soleilLever": "7:51",
+  "soleilZenith": "12:28",
+  "soleilCoucher": "17:05",
+  "soleilElevation": "-24.94",
+  "soleilElevzenith": "24.14",
+  "soleilPosv": "-15.00",
+  "soleilPosh": "230.00",
+  "soleilDuree": "9:14",
+  "soleilDiff": "-3m10s"
 }
 ```
 
 ```
 frenchtools/Lyon69/lune
 {
-  "lunelever":"23:59",
-  "lunecoucher":"14:13",
-  "lunelevation":"-16.71",
-  "lunetoujours":0,
-  "luneabsente":0,
-  "lunephase":"Dernier quartier"
+  "luneLever": "05:49",
+  "luneCoucher": "16:07",
+  "luneElevation": "-33.55",
+  "luneToujours": 0,
+  "luneAbsente": 0,
+  "lunePhase": "Dernier croissant"
 }
 ```
 
 ```
 frenchtools/Lyon69/vigilance
 {
-  "vent":"Vert",
-  "orage":"Vert",
-  "pluie_inondation":"Vert",
-  "inondation":"Vert",
-  "neige":"Vert",
-  "canicule":"Vert",
-  "grandfroid":"Vert",
-  "avalanches":"Vert",
-  "vague_submersion":"Vert",
-  "crue":"",
-  "conseil":"",
-  "commentaire":""
+  "vigiVent": "Vert",
+  "vigiOrage": "Vert",
+  "vigiPluie": "Vert",
+  "vigiInondation": "Vert",
+  "vigiNeige": "Vert",
+  "vigiCanicule": "Vert",
+  "vigiFroid": "Vert",
+  "vigiAvalanche": "Vert",
+  "vigiVague": "Vert",
+  "vigiCrue": "",
+  "vigiConseil": "",
+  "vigiComment": "Vents forts sur la Corse du Sud associés à la tempête Denise."
 }
 ```
 
