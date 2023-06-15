@@ -2,7 +2,7 @@
 
 ![npm](https://img.shields.io/npm/v/mqtt4frenchtools)
 ![License](https://img.shields.io/github/license/WoCha-FR/mqtt4frenchtools)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/WoCha-FRmqtt4frenchtools/node-js.yml?branch=main)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/WoCha-FR/mqtt4frenchtools/node-js.yml?branch=main)
 [![Coverage Status](https://coveralls.io/repos/github/WoCha-FR/mqtt4frenchtools/badge.svg?branch=main)](https://coveralls.io/github/WoCha-FR/mqtt4frenchtools?branch=main)
 ![npm](https://img.shields.io/npm/dt/mqtt4frenchtools)
 
