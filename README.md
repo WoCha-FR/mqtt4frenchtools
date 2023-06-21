@@ -8,6 +8,14 @@
 
 Publish values from french open api to MQTT and other usefull data.
 
+## 1.1.0 UPDATE
+
+Weather alert is now unavailable without an API Subscription.
+
+Manual to create one : [API Manager Meteo France](https://portail-api.meteofrance.fr/authenticationendpoint/aide.do)
+
+mqtt4frenchtools use Acces by [API key protocol](https://portail-api.meteofrance.fr/authenticationendpoint/aide.do#logic-schema)
+
 ### Data published
 
 - Year information (number of days in year, day number in year, week number, ...)
@@ -20,14 +28,13 @@ And for each city provided as parameter :
 - Moon Information (moonset, moonrise, ....)
 - Statutory holiday (with Alsace-Moselle)
 - School holidays (of the city School Zone)
-- Wethear Alert
 
 ### API Used
 
 - [geo.api.gouv.fr](https://geo.api.gouv.fr/)
-- [Risques Météorologiques](https://public.opendatasoft.com/explore/dataset/risques-meteorologiques-copy/api/)
 - [Le calendrier scolaire](https://data.education.gouv.fr/explore/dataset/fr-en-calendrier-scolaire/information/)
 - [Jours fériés en France](https://calendrier.api.gouv.fr/jours-feries/)
+- [DonneesPubliquesVigilance](https://portail-api.meteofrance.fr/devportal/apis/5e99a87c-d50d-465b-a33f-1f12cf675161/overview)
 
 ## Installing
 
@@ -44,6 +51,7 @@ Usage: mqtt4frenchtools [options]
 
 Options:
   -a, --ville         ville                                              [array]
+  -m, --apikey        apikey for weather alert
   -u, --mqttUrl       mqtt broker url              [default: "mqtt://127.0.0.1"]
   -t, --mqttTopic     mqtt topic prefix                 [default: "frenchtools"]
   -v, --logVerbosity  log verbosity
@@ -169,10 +177,7 @@ frenchtools/Lyon69/vigilance
   "vigiCanicule": "Vert",
   "vigiFroid": "Vert",
   "vigiAvalanche": "Vert",
-  "vigiVague": "Vert",
-  "vigiCrue": "",
-  "vigiConseil": "",
-  "vigiComment": "Vents forts sur la Corse du Sud associés à la tempête Denise."
+  "vigiVague": "Vert"
 }
 ```
 

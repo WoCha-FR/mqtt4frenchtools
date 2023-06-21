@@ -85,13 +85,13 @@ describe('getVille', () => {
   })
   test('should return first city and other possibilities', async () => {
     const spy1 = jest.spyOn(logger, 'warn')
-    const res = await client.getVille('Rives')
+    const res = await client.getVille('Rives', true)
     expect(spy1).toHaveBeenCalledWith('Autre ville possible: Rives (47) : Utilisez \'47210+Rives\' comme paramètre.')
     expect(res).toStrictEqual({ dpt: '38', lat: 45.3606, lon: 5.4848, nom: 'Rives', top: 'Rives38', vac: 'A' })
   })
   test('should return a city and remove other possibility bad names', async () => {
     const spy1 = jest.spyOn(logger, 'warn')
-    const res = await client.getVille('Paris')
+    const res = await client.getVille('Paris', true)
     expect(spy1).not.toHaveBeenCalledWith()
     expect(res).toStrictEqual({ dpt: '75', lat: 48.8589, lon: 2.347, nom: 'Paris', top: 'Paris75', vac: 'C' })
   })
@@ -103,7 +103,7 @@ describe('getVille', () => {
   })
   test('should return a city', async () => {
     const spy1 = jest.spyOn(logger, 'warn')
-    const res = await client.getVille('06510+Le Broc')
+    const res = await client.getVille('06510+Le Broc', true)
     expect(spy1).not.toHaveBeenCalledWith()
     expect(res).toStrictEqual({ dpt: '06', lat: 43.8146, lon: 7.1621, nom: 'Le Broc', top: 'LeBroc06', vac: 'B' })
   })
@@ -199,34 +199,20 @@ describe('Sun and Moon', () => {
 
 describe('getMeteoVigilance', () => {
   let client
-  const baseURL = 'https://data.opendatasoft.com/api/records/1.0/search/'
-  const params1 = {
-    dataset: 'risques-meteorologiques-copy@public',
-    lang: 'fr',
-    rows: 1,
-    timezone: 'Europe/Paris',
-    'geofilter.distance': '30.8086,4.2706'
-  }
-  const params2 = {
-    dataset: 'risques-meteorologiques-copy@public',
-    lang: 'fr',
-    rows: 1,
-    timezone: 'Europe/Paris',
-    'geofilter.distance': '44.8624,-0.5848'
-  }
-  const params3 = {
-    dataset: 'risques-meteorologiques-copy@public',
-    lang: 'fr',
-    rows: 1,
-    timezone: 'Europe/Paris',
-    'geofilter.distance': '43.8624,0.5848'
-  }
+  const baseURL = 'https://public-api.meteofrance.fr/public/DPVigilance/v1/cartevigilance/encours'
+  const params1 = { apikey: 'nodata1' }
+  const params2 = { apikey: 'nodata2' }
+  const params3 = { apikey: 'testretour1' }
+  const params4 = { apikey: 'testretour2' }
+  const params5 = { apikey: 'testretour3' }
 
   beforeAll(async () => {
     mock
-      .onGet(baseURL, { params: params1 }).reply(200, { records: [] })
-      .onGet(baseURL, { params: params2 }).reply(200, { records: [{ fields: { etat_inondation: 'Vert', etat_vent: 'Jaune', etat_orage: 'Vert', etat_avalanches: 'Vert', etat_pluie_inondation: 'Vert', etat_canicule: 'Vert', etat_neige: 'Vert', etat_vague_submersion: 'Jaune', etat_grand_froid: 'Vert', crue_valeur: 'VIDE', vigilanceconseil_texte: 'VIDE', vigilancecommentaire_texte: 'VIDE' } }] })
-      .onGet(baseURL, { params: params3 }).reply(200, { records: [{ fields: { etat_inondation: 'Vert', etat_vent: 'Jaune', etat_orage: 'Vert', etat_avalanches: 'Vert', etat_pluie_inondation: 'Vert', etat_canicule: 'Vert', etat_neige: 'Vert', etat_vague_submersion: 'Jaune', etat_grand_froid: 'Vert' } }] })
+      .onGet(baseURL, { params: params1 }).reply(200, { product: {} })
+      .onGet(baseURL, { params: params2 }).reply(200, { product: { periods: [] } })
+      .onGet(baseURL, { params: params3 }).reply(200, { product: { periods: [{ echeance: 'J', timelaps: { domain_ids: [{ domain_id: '10', phenomenon_items: [{ phenomenon_id: '1', phenomenon_max_color_id: 1 }, { phenomenon_id: '2', phenomenon_max_color_id: 2 }, { phenomenon_id: '3', phenomenon_max_color_id: 3 }, { phenomenon_id: '4', phenomenon_max_color_id: 4 }] }, { domain_id: '40', phenomenon_items: [{ phenomenon_id: '1', phenomenon_max_color_id: 1 }] }] } }, { echeance: 'J1', timelaps: {} }] } })
+      .onGet(baseURL, { params: params4 }).reply(200, { product: { periods: [{ echeance: 'J', timelaps: { domain_ids: [{ domain_id: '17', phenomenon_items: [{ phenomenon_id: '1', phenomenon_max_color_id: 1 }, { phenomenon_id: '4', phenomenon_max_color_id: 1 }, { phenomenon_id: '3', phenomenon_max_color_id: 2 }, { phenomenon_id: '2', phenomenon_max_color_id: 1 }, { phenomenon_id: '5', phenomenon_max_color_id: 1 }, { phenomenon_id: '6', phenomenon_max_color_id: 1 }] }, { domain_id: '1710', max_color_id: 1, phenomenon_items: [{ phenomenon_id: '9', phenomenon_max_color_id: 1 }] }] } }] } })
+      .onGet(baseURL, { params: params5 }).reply(200, { product: { periods: [{ echeance: 'J', timelaps: { domain_ids: [{ domain_id: '74', phenomenon_items: [{ phenomenon_id: '5', phenomenon_max_color_id: 2 }, { phenomenon_id: '7', phenomenon_max_color_id: 2 }] }, { domain_id: '7410', max_color_id: 1, phenomenon_items: [{ phenomenon_id: '8', phenomenon_max_color_id: 3 }] }] } }] } })
       .onAny().reply(404)
   })
   afterAll(() => {
@@ -236,24 +222,37 @@ describe('getMeteoVigilance', () => {
     client = new InfoVille()
   })
 
-  test('should return no data on geolfiter not in france', async () => {
+  test('should return warn no data with response empty', async () => {
     const spy1 = jest.spyOn(logger, 'warn')
-    await client.getMeteoVigilance('30.8086', '4.2706', 'vigimet')
-    expect(spy1).toHaveBeenCalledWith('Pas de données pour cette position')
+    await client.getMeteoVigilance('07', 'vigimet', 'nodata1')
+    expect(spy1).toHaveBeenCalledWith('Pas de données de vigilance')
   })
-  test('should send data for correct geofilter', async () => {
-    const res = { vigiAvalanche: 'Vert', vigiCanicule: 'Vert', vigiComment: 'VIDE', vigiConseil: 'VIDE', vigiCrue: 'VIDE', vigiFroid: 'Vert', vigiInondation: 'Vert', vigiNeige: 'Vert', vigiOrage: 'Vert', vigiPluie: 'Vert', vigiVague: 'Jaune', vigiVent: 'Jaune' }
+  test('should return warn no data with response empty', async () => {
+    const spy1 = jest.spyOn(logger, 'warn')
+    await client.getMeteoVigilance('07', 'vigimet', 'nodata2')
+    expect(spy1).toHaveBeenCalledWith('Pas de données de vigilance')
+  })
+  test('should return correct data with no additional', async () => {
+    const res = { vigiInondation: 'Rouge', vigiOrage: 'Orange', vigiPluie: 'Jaune', vigiVent: 'Vert' }
     const spy1 = jest.spyOn(logger, 'warn')
     const spy2 = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    await client.getMeteoVigilance('44.8624', '-0.5848', 'vigimet')
+    await client.getMeteoVigilance('10', 'vigimet', 'testretour1')
     expect(spy1).not.toHaveBeenCalled()
     expect(spy2).toHaveBeenCalledWith('frame', 'vigimet/vigilance', res)
   })
-  test('should send data for correct geofilter', async () => {
-    const res = { vigiAvalanche: 'Vert', vigiCanicule: 'Vert', vigiComment: '', vigiConseil: '', vigiCrue: '', vigiFroid: 'Vert', vigiInondation: 'Vert', vigiNeige: 'Vert', vigiOrage: 'Vert', vigiPluie: 'Vert', vigiVague: 'Jaune', vigiVent: 'Jaune' }
+  test('should return correct data with additional', async () => {
+    const res = { vigiCanicule: 'Vert', vigiInondation: 'Vert', vigiNeige: 'Vert', vigiOrage: 'Jaune', vigiVent: 'Vert', vigiPluie: 'Vert', vigiVague: 'Vert' }
     const spy1 = jest.spyOn(logger, 'warn')
     const spy2 = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    await client.getMeteoVigilance('43.8624', '0.5848', 'vigimet')
+    await client.getMeteoVigilance('17', 'vigimet', 'testretour2')
+    expect(spy1).not.toHaveBeenCalled()
+    expect(spy2).toHaveBeenCalledWith('frame', 'vigimet/vigilance', res)
+  })
+  test('should return correct data with mountain additional', async () => {
+    const res = { vigiAvalanche: 'Orange', vigiFroid: 'Jaune', vigiNeige: 'Jaune' }
+    const spy1 = jest.spyOn(logger, 'warn')
+    const spy2 = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
+    await client.getMeteoVigilance('74', 'vigimet', 'testretour3')
     expect(spy1).not.toHaveBeenCalled()
     expect(spy2).toHaveBeenCalledWith('frame', 'vigimet/vigilance', res)
   })
@@ -336,7 +335,7 @@ describe('Request', () => {
     mock
       .onGet('/path', { params: { type: 'params' } }).reply(200, { body: [{ type: 'getpublicdata' }] })
       .onGet('/timeout').timeout()
-      .onGet('/opendata', { params: { type: 'params' } }).reply(409, { error: 'You have exceeded the requests limit for anonymous users.', errorcode: 10005 })
+      .onGet('/portail-api', { params: { type: 'params' } }).reply(401, '<ams:message>Invalid Credentials</ams:message>')
       .onAny().reply(404)
   })
   afterAll(() => {
@@ -356,11 +355,11 @@ describe('Request', () => {
     expect(spy1).toHaveBeenCalledWith('HTTP request /timeout failed: timeout of 2000ms exceeded')
     expect(res).toStrictEqual(undefined)
   })
-  test('should return error in case of Opendatasoft error', async () => {
+  test('should return api error', async () => {
     const spy1 = jest.spyOn(logger, 'warn')
-    const res = await client.request('/opendata', { type: 'params' })
-    expect(spy1).toHaveBeenCalledWith('HTTP request /opendata failed: You have exceeded the requests limit for anonymous users. (10005)')
-    expect(res).toStrictEqual(undefined)
+    const res = await client.request('/portail-api', { type: 'params' })
+    expect(spy1).toHaveBeenCalledWith('HTTP request /portail-api failed: Invalid Credentials. Make sure you have provided the correct security credentials')
+    expect(res).toStrictEqual({})
   })
   test('should print warning in case of bad request', async () => {
     const spy1 = jest.spyOn(logger, 'warn')

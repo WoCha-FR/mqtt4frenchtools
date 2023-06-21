@@ -41,9 +41,9 @@ describe('Test getJourSemAn function', () => {
   const client = new InfoGlobal()
   const res1 = { dstDate: '27/03', dstDiff: 85, anNbjour: 365, anNumjour: 1, anNumsem: 52 }
   const res2 = { dstDate: '27/03/2033', dstDiff: 86, anNbjour: 366, anNumjour: 366, anNumsem: 53 }
-  const res3 = { dstDate: '27/10', dstDiff: 179, anNbjour: 366, anNumjour: 122, anNumsem: 18 }
+  const res3 = { dstDate: '29/10', dstDiff: 181, anNbjour: 365, anNumjour: 121, anNumsem: 18 }
   const res4 = { dstDate: '31/03', dstDiff: 90, anNbjour: 366, anNumjour: 1, anNumsem: 1 }
-  const res5 = { dstDate: '30/10', dstDiff: 170, anNbjour: 365, anNumjour: 133, anNumsem: 19 }
+  const res5 = { dstDate: '29/10', dstDiff: 169, anNbjour: 365, anNumjour: 133, anNumsem: 19 }
   const res6 = { dstDate: '30/10', dstDiff: 212, anNbjour: 365, anNumjour: 91, anNumsem: 13 }
   afterEach(() => {
     jest.useRealTimers()
@@ -63,7 +63,7 @@ describe('Test getJourSemAn function', () => {
   })
   test('should return correct values 3', async () => {
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2024, 4, 1) })
+    jest.useFakeTimers({ now: new Date(2023, 4, 1) })
     await client.getJourSemAn()
     expect(spy).toHaveBeenCalledWith('frame', 'global/annee', res3)
   })
@@ -75,7 +75,7 @@ describe('Test getJourSemAn function', () => {
   })
   test('should return correct values 5', async () => {
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2022, 4, 13) })
+    jest.useFakeTimers({ now: new Date(2023, 4, 13) })
     await client.getJourSemAn()
     expect(spy).toHaveBeenCalledWith('frame', 'global/annee', res5)
   })

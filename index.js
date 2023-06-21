@@ -19,7 +19,9 @@ function updateData () {
     for (const key in mesVilles) {
       infoVi.getSunData(mesVilles[key].lat, mesVilles[key].lon, key)
       infoVi.getMoonData(mesVilles[key].lat, mesVilles[key].lon, key)
-      infoVi.getMeteoVigilance(mesVilles[key].lat, mesVilles[key].lon, key)
+      if (!_.isUndefined(config.apikey)) {
+        infoVi.getMeteoVigilance(mesVilles[key].dtp, key, config.apikey)
+      }
     }
     lastMinute = 1
   } else {
@@ -69,7 +71,7 @@ async function main () {
       logger.warn('Pas de ville à traiter.')
     } else {
       for (let i = 0, len = config.ville.length; i < len; i++) {
-        const tempVille = await infoVi.getVille(config.ville[i])
+        const tempVille = await infoVi.getVille(config.ville[i], false)
         if (!_.isObject(tempVille)) {
           continue
         }
@@ -77,6 +79,7 @@ async function main () {
         mesVilles[tempVille.top] = tempVille
         logger.info(`Nouvelle ville: ${tempVille.nom} - Departement: ${tempVille.dpt} - Zone: ${tempVille.vac}`)
         logger.info(`Les données auront comme topic principal: '${config.mqttTopic}/${tempVille.top}'`)
+        await infoVi.getVille(config.ville[i], true)
         // Feries
         await infoVi.getJourFerie(tempVille.dpt, tempVille.top)
         // Vacances
@@ -86,7 +89,11 @@ async function main () {
         // Lune
         await infoVi.getMoonData(tempVille.lat, tempVille.lon, tempVille.top)
         // Vigilance
-        await infoVi.getMeteoVigilance(tempVille.lat, tempVille.lon, tempVille.top)
+        if (_.isUndefined(config.apikey)) {
+          logger.warn('Pas de vigilance meteo, apikey manquant.')
+        } else {
+          await infoVi.getMeteoVigilance(tempVille.dpt, tempVille.top, config.apikey)
+        }
       }
     }
     // Interval
