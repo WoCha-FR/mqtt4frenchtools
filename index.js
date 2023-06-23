@@ -20,7 +20,7 @@ function updateData () {
       infoVi.getSunData(mesVilles[key].lat, mesVilles[key].lon, key)
       infoVi.getMoonData(mesVilles[key].lat, mesVilles[key].lon, key)
       if (!_.isUndefined(config.apikey)) {
-        infoVi.getMeteoVigilance(mesVilles[key].dtp, key, config.apikey)
+        infoVi.getMeteoVigilance(mesVilles[key].dpt, key, config.apikey)
       }
     }
     lastMinute = 1
