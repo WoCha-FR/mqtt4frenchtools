@@ -1,10 +1,10 @@
 # mqtt4frenchtools
 
-![npm](https://img.shields.io/npm/v/mqtt4frenchtools)
-![License](https://img.shields.io/github/license/WoCha-FR/mqtt4frenchtools)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/WoCha-FR/mqtt4frenchtools/node-js.yml?branch=main)
+[![npm](https://img.shields.io/npm/v/mqtt4frenchtools)](https://www.npmjs.com/package/mqtt4frenchtools)
+[![License](https://img.shields.io/github/license/WoCha-FR/mqtt4frenchtools)](https://raw.githubusercontent.com/WoCha-FR/mqtt4frenchtools/main/LICENSE)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/WoCha-FR/mqtt4frenchtools/node-js.yml?branch=main)](https://github.com/WoCha-FR/mqtt4frenchtools/actions)
 [![Coverage Status](https://coveralls.io/repos/github/WoCha-FR/mqtt4frenchtools/badge.svg?branch=main)](https://coveralls.io/github/WoCha-FR/mqtt4frenchtools?branch=main)
-![npm](https://img.shields.io/npm/dt/mqtt4frenchtools)
+[![npm](https://img.shields.io/npm/dt/mqtt4frenchtools)](https://www.npmjs.com/package/mqtt4frenchtools)
 
 Publish values from french open api to MQTT and other usefull data.
 
