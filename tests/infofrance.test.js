@@ -127,8 +127,31 @@ describe('EDF Tempo', () => {
   describe('Phase 2', () => {
     beforeAll(async () => {
       mock
-        .onGet('searchTempoStore').reply(200, {})
-        .onGet('getNbTempoDays').reply(200, {})
+        .onGet('searchTempoStore').reply(200, { test: 'test' })
+        .onGet('getNbTempoDays').reply(200, { test: 'test' })
+        .onAny().reply(404)
+    })
+    afterAll(() => {
+      mock.reset()
+    })
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+    test('should return right data 3', async () => {
+      const client = new InfoGlobal()
+      const res = { tempoCoulj: 'NO_DATA', tempoCoulj1: 'NO_DATA', tempoBlanc: 'NO_DATA', tempoBleu: 'NO_DATA', tempoRouge: 'NO_DATA', tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
+      const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
+      jest.useFakeTimers({ now: new Date(2023, 9, 5) })
+      await client.getEDF()
+      expect(spy).toHaveBeenCalledWith('frame', 'global/edftempo', res)
+    })
+  })
+
+  describe('Phase 3', () => {
+    beforeAll(async () => {
+      mock
+        .onGet('searchTempoStore').reply(200)
+        .onGet('getNbTempoDays').reply(200)
         .onAny().reply(404)
     })
     afterAll(() => {

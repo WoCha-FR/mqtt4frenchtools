@@ -205,14 +205,16 @@ describe('getMeteoVigilance', () => {
   const params3 = { apikey: 'testretour1' }
   const params4 = { apikey: 'testretour2' }
   const params5 = { apikey: 'testretour3' }
+  const params6 = { apikey: 'reponsej1' }
 
   beforeAll(async () => {
     mock
-      .onGet(baseURL, { params: params1 }).reply(200, { product: {} })
-      .onGet(baseURL, { params: params2 }).reply(200, { product: { periods: [] } })
+      .onGet(baseURL, { params: params1 }).reply(200, {})
+      .onGet(baseURL, { params: params2 }).reply(200, { test: 'empty' })
       .onGet(baseURL, { params: params3 }).reply(200, { product: { periods: [{ echeance: 'J', timelaps: { domain_ids: [{ domain_id: '10', phenomenon_items: [{ phenomenon_id: '1', phenomenon_max_color_id: 1 }, { phenomenon_id: '2', phenomenon_max_color_id: 2 }, { phenomenon_id: '3', phenomenon_max_color_id: 3 }, { phenomenon_id: '4', phenomenon_max_color_id: 4 }] }, { domain_id: '40', phenomenon_items: [{ phenomenon_id: '1', phenomenon_max_color_id: 1 }] }] } }, { echeance: 'J1', timelaps: {} }] } })
       .onGet(baseURL, { params: params4 }).reply(200, { product: { periods: [{ echeance: 'J', timelaps: { domain_ids: [{ domain_id: '17', phenomenon_items: [{ phenomenon_id: '1', phenomenon_max_color_id: 1 }, { phenomenon_id: '4', phenomenon_max_color_id: 1 }, { phenomenon_id: '3', phenomenon_max_color_id: 2 }, { phenomenon_id: '2', phenomenon_max_color_id: 1 }, { phenomenon_id: '5', phenomenon_max_color_id: 1 }, { phenomenon_id: '6', phenomenon_max_color_id: 1 }] }, { domain_id: '1710', max_color_id: 1, phenomenon_items: [{ phenomenon_id: '9', phenomenon_max_color_id: 1 }] }] } }] } })
       .onGet(baseURL, { params: params5 }).reply(200, { product: { periods: [{ echeance: 'J', timelaps: { domain_ids: [{ domain_id: '74', phenomenon_items: [{ phenomenon_id: '5', phenomenon_max_color_id: 2 }, { phenomenon_id: '7', phenomenon_max_color_id: 2 }] }, { domain_id: '7410', max_color_id: 1, phenomenon_items: [{ phenomenon_id: '8', phenomenon_max_color_id: 3 }] }] } }] } })
+      .onGet(baseURL, { params: params6 }).reply(200, { product: { periods: [{ echeance: 'J1', timelaps: { domain_ids: [{ domain_id: '74', phenomenon_items: [{ phenomenon_id: '5', phenomenon_max_color_id: 2 }, { phenomenon_id: '7', phenomenon_max_color_id: 2 }] }, { domain_id: '7410', max_color_id: 1, phenomenon_items: [{ phenomenon_id: '8', phenomenon_max_color_id: 3 }] }] } }] } })
       .onAny().reply(404)
   })
   afterAll(() => {
@@ -225,7 +227,7 @@ describe('getMeteoVigilance', () => {
   test('should return warn no data with response empty', async () => {
     const spy1 = jest.spyOn(logger, 'warn')
     await client.getMeteoVigilance('07', 'vigimet', 'nodata1')
-    expect(spy1).toHaveBeenCalledWith('Pas de données de vigilance')
+    expect(spy1).toHaveBeenCalledWith('Pas de réponse de meteofrance')
   })
   test('should return warn no data with response empty', async () => {
     const spy1 = jest.spyOn(logger, 'warn')
@@ -255,6 +257,11 @@ describe('getMeteoVigilance', () => {
     await client.getMeteoVigilance('74', 'vigimet', 'testretour3')
     expect(spy1).not.toHaveBeenCalled()
     expect(spy2).toHaveBeenCalledWith('frame', 'vigimet/vigilance', res)
+  })
+  test('should return warn no data with only J1 data', async () => {
+    const spy1 = jest.spyOn(logger, 'warn')
+    await client.getMeteoVigilance('74', 'vigimet', 'reponsej1')
+    expect(spy1).toHaveBeenCalledWith('Pas de données de vigilance')
   })
 })
 
