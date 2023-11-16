@@ -1,6 +1,6 @@
 {
   "name": "mqtt4frenchtools",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Publish multiple french data to MQTT",
   "main": "index.js",
   "bin": {
@@ -38,7 +38,7 @@
   "homepage": "https://github.com/WoCha-FR/mqtt4frenchtools#readme",
   "dependencies": {
     "async-mqtt": "^2.6.3",
-    "axios": "^1.6.1",
+    "axios": "^1.6.2",
     "lodash": "^4.17.21",
     "suncalc": "^1.9.0",
     "yalm": "^4.1.0",
