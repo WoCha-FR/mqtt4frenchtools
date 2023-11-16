@@ -8,6 +8,12 @@
 
 Publish values from french open api to MQTT and other usefull data.
 
+## 1.2.0 UPDATE
+
+Weather alert is now in three periods of level alert with start and stop timestamp
+
+Topic vigiInondation is replaced by vigiCrue
+
 ## 1.1.0 UPDATE
 
 Weather alert is now unavailable without an API Subscription.
@@ -169,15 +175,75 @@ frenchtools/Lyon69/lune
 ```
 frenchtools/Lyon69/vigilance
 {
-  "vigiVent": "Vert",
-  "vigiOrage": "Vert",
-  "vigiPluie": "Vert",
-  "vigiInondation": "Vert",
-  "vigiNeige": "Vert",
-  "vigiCanicule": "Vert",
-  "vigiFroid": "Vert",
-  "vigiAvalanche": "Vert",
-  "vigiVague": "Vert"
+  "vigiAvalanche":"Vert",
+  "vigiAvalancheD":1700110800,
+  "vigiAvalancheF":1700262000,
+  "vigiAvalanche1":"",
+  "vigiAvalanche1D":"",
+  "vigiAvalanche1F":"",
+  "vigiAvalanche2":"",
+  "vigiAvalanche2D":"",
+  "vigiAvalanche2F":"",
+  "vigiCrue":"Vert",
+  "vigiCrueD":1700110800,
+  "vigiCrueF":1700262000,
+  "vigiCrue1":"",
+  "vigiCrue1D":"",
+  "vigiCrue1F":"",
+  "vigiFroid":"Vert",
+  "vigiFroidD":1700110800,
+  "vigiFroidF":1700262000,
+  "vigiFroid1":"",
+  "vigiFroid1D":"",
+  "vigiFroid1F":"",
+  "vigiFroid2":"",
+  "vigiFroid2D":"",
+  "vigiFroid2F":"",
+  "vigiNeige":"Vert",
+  "vigiNeigeD":1700110800,
+  "vigiNeigeF":1700262000,
+  "vigiNeige1":"",
+  "vigiNeige1D":"",
+  "vigiNeige1F":"",
+  "vigiNeige2":"",
+  "vigiNeige2D":"",
+  "vigiNeige2F":"",
+  "vigiOrage":"Vert",
+  "vigiOrageD":1700110800,
+  "vigiOrageF":1700197200,
+  "vigiOrage1":"Jaune",
+  "vigiOrage1D":1700197200,
+  "vigiOrage1F":1700244000,
+  "vigiOrage2":"Vert",
+  "vigiOrage2D":1700244000,
+  "vigiOrage2F":1700262000,
+  "vigiPluie":"Vert",
+  "vigiPluieD":1700110800,
+  "vigiPluieF":1700262000,
+  "vigiPluie1":"",
+  "vigiPluie1D":"",
+  "vigiPluie1F":"",
+  "vigiPluie2":"",
+  "vigiPluie2D":"",
+  "vigiPluie2F":"",
+  "vigiVague":"Vert",
+  "vigiVagueD":1700110800,
+  "vigiVagueF":1700175600,
+  "vigiVague1":"Jaune",
+  "vigiVague1D":1700175600,
+  "vigiVague1F":1700262000,
+  "vigiVague2":"",
+  "vigiVague2D":"",
+  "vigiVague2F":"",
+  "vigiVentD":1700110800,
+  "vigiVentF":1700164800
+  "vigiVent":"Vert",
+  "vigiVent1":"Jaune",
+  "vigiVent1D":1700164800,
+  "vigiVent1F":1700233200,
+  "vigiVent2":"Vert",
+  "vigiVent2D":1700233200,
+  "vigiVent2F":1700262000
 }
 ```
 

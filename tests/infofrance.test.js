@@ -139,7 +139,7 @@ describe('EDF Tempo', () => {
     })
     test('should return right data 3', async () => {
       const client = new InfoGlobal()
-      const res = { tempoCoulj: 'NO_DATA', tempoCoulj1: 'NO_DATA', tempoBlanc: 'NO_DATA', tempoBleu: 'NO_DATA', tempoRouge: 'NO_DATA', tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
+      const res = { tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
       const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
       jest.useFakeTimers({ now: new Date(2023, 9, 5) })
       await client.getEDF()
@@ -162,7 +162,7 @@ describe('EDF Tempo', () => {
     })
     test('should return right data 3', async () => {
       const client = new InfoGlobal()
-      const res = { tempoCoulj: 'NO_DATA', tempoCoulj1: 'NO_DATA', tempoBlanc: 'NO_DATA', tempoBleu: 'NO_DATA', tempoRouge: 'NO_DATA', tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
+      const res = { tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
       const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
       jest.useFakeTimers({ now: new Date(2023, 9, 5) })
       await client.getEDF()
