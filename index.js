@@ -10,6 +10,7 @@ const _ = require('lodash')
  * Update Data
  */
 let lastMinute = 1
+let lastMeteoF = 1
 let lastHours = new Date().setMinutes(0, 0, 0)
 let lastJours = new Date().setHours(0, 0, 0, 0)
 
@@ -19,13 +20,20 @@ function updateData () {
     for (const key in mesVilles) {
       infoVi.getSunData(mesVilles[key].lat, mesVilles[key].lon, key)
       infoVi.getMoonData(mesVilles[key].lat, mesVilles[key].lon, key)
-      if (!_.isUndefined(config.apikey)) {
-        infoVi.getMeteoVigilance(mesVilles[key].dpt, key, config.apikey)
-      }
     }
     lastMinute = 1
   } else {
     lastMinute++
+    lastMeteoF++
+  }
+  // 10 minutes
+  if (lastMeteoF >= 10) {
+    for (const key in mesVilles) {
+      if (!_.isUndefined(config.apikey)) {
+        infoVi.getMeteoVigilance(mesVilles[key].dpt, key, config.apikey)
+      }
+    }
+    lastMeteoF = 1
   }
   // 1 Heure
   const curHours = new Date().setMinutes(0, 0, 0)
