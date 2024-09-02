@@ -8,6 +8,14 @@
 
 Publish values from french open api to MQTT and other usefull data.
 
+## 1.2.2 UPDATE
+
+Update School holidays for 2024-2025
+
+## 1.2.1 UPDATE
+
+Correct bug in Weather alert
+
 ## 1.2.0 UPDATE
 
 Weather alert is now in three periods of level alert with start and stop timestamp

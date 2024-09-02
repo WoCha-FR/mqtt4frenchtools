@@ -26,8 +26,8 @@ function updateData () {
     lastMinute++
     lastMeteoF++
   }
-  // 10 minutes
-  if (lastMeteoF >= 10) {
+  // 15 minutes
+  if (lastMeteoF >= 15) {
     for (const key in mesVilles) {
       if (!_.isUndefined(config.apikey)) {
         infoVi.getMeteoVigilance(mesVilles[key].dpt, key, config.apikey)

@@ -103,11 +103,12 @@ describe('Test getLastDimanche function', () => {
 })
 
 describe('EDF Tempo', () => {
-  describe('Phase 1', () => {
+  // Test 1
+  describe('Valide', () => {
     beforeAll(async () => {
       mock
-        .onGet('searchTempoStore', { params: { dateRelevant: '2024-5-5' } }).reply(200, { couleurJourJ: 'BLEU', couleurJourJ1: 'BLEU' })
-        .onGet('getNbTempoDays', { params: { TypeAlerte: 'TEMPO' } }).reply(200, { PARAM_NB_J_BLANC: 3, PARAM_NB_J_ROUGE: 1, PARAM_NB_J_BLEU: 35 })
+        .onGet('calendrier-jours-effacement', { params: { option: 'TEMPO', dateApplicationBorneInf: '2024-09-01', dateApplicationBorneSup: '2024-09-02' } }).reply(200, { errors: [], content: { dateApplicationBorneInf: '2024-09-01', dateApplicationBorneSup: '2024-09-02', dateHeureTraitementActivET: '2024-09-01T11:43:19Z', options: [{ option: 'TEMPO', calendrier: [{ dateApplication: '2024-09-01', statut: 'TEMPO_BLEU' }, { dateApplication: '2024-09-02', statut: 'TEMPO_BLEU' }] }] } })
+        .onGet('saisons/search', { params: { option: 'TEMPO', dateReference: '2024-09-01' } }).reply(200, { errors: [], content: [{ typeJourEff: 'TEMPO_BLANC', libelle: 'TEMPO BLANC 2024 2025', nombreJours: 43, premierJour: '2024-09-01', dernierJour: '2025-08-31', premierJourExclu: null, dernierJourExclu: null, nombreJoursTires: 0, etat: 'OUVERTE' }, { typeJourEff: 'TEMPO_BLEU', libelle: 'TEMPO BLEU 2024 2025', nombreJours: 300, premierJour: '2024-09-01', dernierJour: '2025-08-31', premierJourExclu: null, dernierJourExclu: null, nombreJoursTires: 2, etat: 'OUVERTE' }, { typeJourEff: 'TEMPO_ROUGE', libelle: 'TEMPO ROUGE 2024 2025', nombreJours: 22, premierJour: '2024-11-01', dernierJour: '2025-03-31', premierJourExclu: null, dernierJourExclu: null, nombreJoursTires: 0, etat: 'NON_COMMENCEE' }] })
         .onAny().reply(404)
     })
     afterAll(() => {
@@ -116,57 +117,41 @@ describe('EDF Tempo', () => {
     })
     test('should return valid data', async () => {
       const client = new InfoGlobal()
-      const res = { tempoCoulj: 'BLEU', tempoCoulj1: 'BLEU', tempoBlanc: 3, tempoBleu: 35, tempoRouge: 1, tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
+      const res = { tempoBlanc: 43, tempoBlancDeb: '2024-09-01', tempoBlancEtat: 'OUVERTE', tempoBlancFin: '2025-08-31', tempoBlancTires: 0, tempoBlancTotal: 43, tempoBleu: 298, tempoBleuEtat: 'OUVERTE', tempoBleuTires: 2, tempoBleuTotal: 300, tempoCoulj: 'TEMPO_BLEU', tempoCoulj1: 'TEMPO_BLEU', tempoDeb: '2024-09-01', tempoFin: '2025-08-31', tempoRouge: 22, tempoRougeDeb: '2024-11-01', tempoRougeEtat: 'NON_COMMENCEE', tempoRougeFin: '2025-03-31', tempoRougeTires: 0, tempoRougeTotal: 22 }
       const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-      jest.useFakeTimers({ now: new Date(2024, 4, 5) })
+      jest.useFakeTimers({ now: new Date(2024, 8, 1) })
       await client.getEDF()
       expect(spy).toHaveBeenCalledWith('frame', 'global/edftempo', res)
     })
+    test('should return erreur', async () => {
+      const client = new InfoGlobal()
+      const spy1 = jest.spyOn(logger, 'warn')
+      jest.useFakeTimers({ now: new Date(2024, 10, 1) })
+      await client.getEDF()
+      expect(spy1).toHaveBeenCalledWith('Pas de réponse EDF Calendrier Tempo')
+      expect(spy1).toHaveBeenCalledWith('Pas de réponse EDF Jours restant Tempo')
+    })
   })
 
-  describe('Phase 2', () => {
+  // Test 2
+  describe('Erreur json', () => {
     beforeAll(async () => {
       mock
-        .onGet('searchTempoStore').reply(200, { test: 'test' })
-        .onGet('getNbTempoDays').reply(200, { test: 'test' })
+        .onGet('calendrier-jours-effacement', { params: { option: 'TEMPO', dateApplicationBorneInf: '2024-09-05', dateApplicationBorneSup: '2024-09-06' } }).reply(200, { errors: [{ code: 'ATM_HTTP_400', description: 'La syntaxe de la requête est erronée.', severity: 'ERROR', type: 'TECHNICAL' }], content: null })
+        .onGet('saisons/search', { params: { option: 'TEMPO', dateReference: '2024-09-05' } }).reply(200, { errors: [{ code: 'ATM_HTTP_400', description: 'La syntaxe de la requête est erronée.', severity: 'ERROR', type: 'TECHNICAL' }], content: null })
         .onAny().reply(404)
     })
     afterAll(() => {
       mock.reset()
-    })
-    afterEach(() => {
       jest.useRealTimers()
     })
-    test('should return right data 3', async () => {
+    test('should return erreur', async () => {
       const client = new InfoGlobal()
-      const res = { tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
-      const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-      jest.useFakeTimers({ now: new Date(2023, 9, 5) })
+      const spy1 = jest.spyOn(logger, 'warn')
+      jest.useFakeTimers({ now: new Date(2024, 8, 5) })
       await client.getEDF()
-      expect(spy).toHaveBeenCalledWith('frame', 'global/edftempo', res)
-    })
-  })
-
-  describe('Phase 3', () => {
-    beforeAll(async () => {
-      mock
-        .onGet('searchTempoStore').reply(200)
-        .onGet('getNbTempoDays').reply(200)
-        .onAny().reply(404)
-    })
-    afterAll(() => {
-      mock.reset()
-    })
-    afterEach(() => {
-      jest.useRealTimers()
-    })
-    test('should return right data 3', async () => {
-      const client = new InfoGlobal()
-      const res = { tempoDeb: '01/09/2023', tempoFin: '31/08/2024' }
-      const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-      jest.useFakeTimers({ now: new Date(2023, 9, 5) })
-      await client.getEDF()
-      expect(spy).toHaveBeenCalledWith('frame', 'global/edftempo', res)
+      expect(spy1).toHaveBeenCalledWith('Erreur EDF Calendrier Tempo')
+      expect(spy1).toHaveBeenCalledWith('Erreur EDF Jours restant Tempo')
     })
   })
 })
@@ -177,6 +162,7 @@ describe('Request', () => {
     mock
       .onGet('/path', { params: { type: 'params' } }).reply(200, { body: [{ type: 'getpublicdata' }] })
       .onGet('/timeout').timeout()
+      .onGet('/err400').reply(400)
       .onAny().reply(404)
   })
   afterAll(() => {
@@ -200,6 +186,12 @@ describe('Request', () => {
     const spy1 = jest.spyOn(logger, 'warn')
     const res = await client.request('/404', { type: 'params' })
     expect(spy1).toHaveBeenCalledWith('HTTP request /404 failed: Request failed with status code 404')
+    expect(res).toStrictEqual(undefined)
+  })
+  test('Retry on err 400', async () => {
+    const spy1 = jest.spyOn(logger, 'debug')
+    const res = await client.request('/err400', { type: 'params' })
+    expect(spy1).toHaveBeenCalledTimes(2)
     expect(res).toStrictEqual(undefined)
   })
 })

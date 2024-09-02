@@ -412,21 +412,21 @@ describe('getJourFerie', () => {
   test('Should return correct value for metropole', async () => {
     const res = { ferCejour: 0, ferNom: '', ferProchaindate: '15/08', ferProchainjour: 10, ferProchainnom: 'Assomption' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2024, 7, 5) })
+    jest.useFakeTimers({ now: new Date(2025, 7, 5) })
     await client.getJourFerie('42', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/ferie', res)
   })
   test('Should return correct value for Alsace-Moselle', async () => {
     const res = { ferCejour: 1, ferNom: 'Jour de Noël', ferProchaindate: '26/12', ferProchainjour: 1, ferProchainnom: '2ème jour de Noël' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2023, 11, 25) })
+    jest.useFakeTimers({ now: new Date(2024, 11, 25) })
     await client.getJourFerie('67', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/ferie', res)
   })
   test('Should return correct value for ferie', async () => {
     const res = { ferCejour: 1, ferNom: 'Jour de Noël', ferProchaindate: '01/01', ferProchainjour: 7, ferProchainnom: '1er janvier' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2023, 11, 25) })
+    jest.useFakeTimers({ now: new Date(2024, 11, 25) })
     await client.getJourFerie('38', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/ferie', res)
   })
@@ -442,30 +442,30 @@ describe('getVacances', () => {
   })
 
   test('Should return correct value Zone A', async () => {
-    const res = { vacCejour: 0, vacFin: '', vacNom: '', vacProchaindate: '17/12', vacProchainjour: 12, vacProchainom: 'Vacances de Noël' }
+    const res = { vacCejour: 0, vacFin: '', vacNom: '', vacProchaindate: '23/12', vacProchainjour: 18, vacProchainom: 'Vacances de Noël' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2022, 11, 5) })
+    jest.useFakeTimers({ now: new Date(2023, 11, 5) })
     await client.getVacances('A', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
   test('Should return correct value for Zone B', async () => {
-    const res = { vacCejour: 0, vacFin: '', vacNom: '', vacProchaindate: '11/02', vacProchainjour: 1, vacProchainom: "Vacances d'Hiver" }
+    const res = { vacCejour: 0, vacFin: '', vacNom: '', vacProchaindate: '24/02', vacProchainjour: 1, vacProchainom: "Vacances d'Hiver" }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2023, 1, 10) })
+    jest.useFakeTimers({ now: new Date(2024, 1, 23) })
     await client.getVacances('B', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
   test('Should return correct value for Zone C', async () => {
-    const res = { vacCejour: 1, vacFin: 3, vacNom: "Vacances d'Hiver", vacProchaindate: '22/04', vacProchainjour: 49, vacProchainom: 'Vacances de Printemps' }
+    const res = { vacCejour: 1, vacFin: 1, vacNom: "Vacances d'Hiver", vacProchaindate: '06/04', vacProchainjour: 40, vacProchainom: 'Vacances de Printemps' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2023, 2, 3) })
+    jest.useFakeTimers({ now: new Date(2024, 1, 25) })
     await client.getVacances('C', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
   test('Should return correct value for Zone CORSE', async () => {
-    const res = { vacCejour: 1, vacFin: 8, vacNom: 'Vacances de Printemps', vacProchaindate: '07/07', vacProchainjour: 74, vacProchainom: "Début des Vacances d'Été" }
+    const res = { vacCejour: 1, vacFin: 14, vacNom: 'Vacances de Printemps', vacProchaindate: '20/05', vacProchainjour: 21, vacProchainom: 'Lundi de Pentecôte' }
     const spy = jest.spyOn(eventEmitter, 'emit').mockImplementation(() => {})
-    jest.useFakeTimers({ now: new Date(2023, 3, 24) })
+    jest.useFakeTimers({ now: new Date(2024, 3, 29) })
     await client.getVacances('CORSE', 'topic')
     expect(spy).toHaveBeenCalledWith('frame', 'topic/vacances', res)
   })
