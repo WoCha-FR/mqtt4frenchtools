@@ -8,6 +8,10 @@
 
 Publish values from french open api to MQTT and other usefull data.
 
+## 1.2.3 UPDATE
+
+New EDF Tempo API
+
 ## 1.2.2 UPDATE
 
 Update School holidays for 2024-2025
@@ -107,13 +111,24 @@ frenchtools/global/annee
 ```
 frenchtools/global/edftempo
 {
-  "tempoCoulj": "TEMPO_BLEU",
-  "tempoCoulj1": "TEMPO_BLEU",
-  "tempoBleu": 216,
+  "tempoBlancTotal": 43,
+  "tempoBlancTires": 0,
   "tempoBlanc": 43,
+  "tempoBlancDeb": '2024-09-01',
+  "tempoBlancFin": '2025-08-31',
+  "tempoBlancEtat": 'OUVERTE',
+  "tempoBleuTotal": 300,
+  "tempoBleuTires": 3,
+  "tempoBleu": 297,
+  "tempoDeb": '2024-09-01',
+  "tempoFin": '2025-08-31',
+  "tempoBleuEtat": 'OUVERTE',
+  "tempoRougeTotal": 22,
+  "tempoRougeTires": 0,
   "tempoRouge": 22,
-  "tempoDeb": "01/09/2022",
-  "tempoFin": "31/08/2023"
+  "tempoRougeDeb": '2024-11-01',
+  "tempoRougeFin": '2025-03-31',
+  "tempoRougeEtat": 'NON_COMMENCEE'
 }
 ```
 

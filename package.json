@@ -1,6 +1,6 @@
 {
   "name": "mqtt4frenchtools",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Publish multiple french data to MQTT",
   "main": "index.js",
   "bin": {
