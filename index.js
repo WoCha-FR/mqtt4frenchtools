@@ -46,6 +46,8 @@ function updateData () {
   if (curJours > lastJours) {
     infoFr.getSaints()
     infoFr.getJourSemAn()
+    infoVi.updateVacancesFile()
+    infoVi.updateFeriesFiles()
     for (const key in mesVilles) {
       infoVi.getJourFerie(mesVilles[key].dpt, key)
       infoVi.getVacances(mesVilles[key].vac, key)
@@ -74,6 +76,9 @@ async function main () {
     await infoFr.getSaints()
     await infoFr.getJourSemAn()
     await infoFr.getEDF()
+    // Maj des fichiers statiques
+    await infoVi.updateVacancesFile()
+    await infoVi.updateFeriesFiles()
     // Les infos par villes
     if (_.isUndefined(config.ville)) {
       logger.warn('Pas de ville à traiter.')
